@@ -39,8 +39,51 @@ I created numerous endpoints, one for "home", one called "pets", and one called 
  ```sudo apt-get install azure-functions-core-tools-4```
 4. Create Local Function Project folder with this code:
 ```func init```
-5. 
+5. Navigate to the "local.settings.json" file and edit the following file to have the following code:
+```
+{
+      "IsEncrypted: false,
+      "Values: {
+         "FUNCTIONS_WORKER_RUNTIME": "python"
+         "AzureWebJobsFeatureFlags: "EnableWorkerIndexing",
+         "AzureWebJobsStorage: "UseDevelopmentStorage=true"
+      }
+}
+```
+6. Input code into function_app.py file. My code is shown below:
+ ```
+import azure.functions as func
 
-# Any challenges encountered, solutions tried, and your conclusions
+app = func.FunctionApp(http_auth_level=func.AuthLevel.ANONYMOUS)
+
+@app.route(route="feeling"
+def emotion_get(req: func.HttpRequest) -> func.HttpResponse:
+    emotion = req.params.get("emotion")
+    if not emotion:
+       emotion = "nothing"
+    if emotion:
+       return func.HttpResponse(f'Why are you feeling {emotion}?')
+```
+7. Create a resource group with the following code:
+
+``` az group create --name AzureFunctionsQuickstart-rg --location <insert location>```
+
+8. Create a storage account with the following code:
+
+``` az storage account create --name <name of storage account> --location <insert location> --resource-group <insert resource group name> --sku Standard_LRS ```
+
+9. Create a function app with the following code:
+    
+```az functionapp create --resource-group <insert resource group name> -rg --consumption-plan-location <insert location> --runtime python --runtime-version 3.9 --functions-version 4 --name <name of function app> --os-type linux --storage account <name of storage account> ```
+
+10. Deploy app with the following code:
+    
+```func azure functionapp publish flaskapp504```
+
+11. A link should appear in the console after running the previous code
 
 Azure Link: https://flask-slim.azurewebsites.net/api/feeling 
+
+# Challenges and Conclusions
+
+A challenge that I faced when completing this assignment was 
