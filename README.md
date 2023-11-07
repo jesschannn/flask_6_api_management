@@ -25,7 +25,7 @@ I created numerous endpoints, one for "home", one called "pets", and one called 
 - In the URL, the format should be "https:// .... dev/feeling?emotion=<insert emotion>"
 - Example:
 
-![image](https://github.com/jesschannn/flask_6_api_management/assets/123782059/21ad426a-7fdc-4cbf-ad7e-92504ed3b288)
+![image](https://github.com/jesschannn/flask_6_api_management/assets/123782059/8dc156ee-9c46-4657-b082-cee603653654)
 
 # Documentation of your API, especially focusing on the standard OpenAPI format
 
