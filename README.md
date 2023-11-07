@@ -29,7 +29,30 @@ I created numerous endpoints, one for "home", one called "pets", and one called 
 
 # Documentation of your API, especially focusing on the standard OpenAPI format
 
-# Steps and observations on Azure API Management integration
+```
+@app.route(route="feeling")
+def emotion_get(req: func.HttpRequest) -> func.HttpResponse:
+    emotion = req.params.get("emotion")
+    if not emotion:
+        emotion = "nothing"
+    if emotion:
+        return func.HttpResponse(f'Why are you feeling {emotion}?')
+```
+
+1. ```@app.route(route="feeling")``` : a separate "page" called feeling. The URL would be displayed as "https:// ....dev/feeling"
+2. ```def emotion_get(reqL func.HttpRequest) -> func.HttpResponse:``` : defined a get request. An http request is required in order to get an http response.
+3. ```emotion = req.params.get("emotion")
+    if not emotion:
+        emotion = "nothing"
+    if emotion:
+        return func.HttpResponse(f'Why are you feeling {emotion}?')
+   ```
+
+   If there is no input in the URL for emotion such as: https://flask-slim.azurewebsites.net/api/feeling, then the response will return "why are you feeling nothing?". "Nothing" is the default value for when there is no input.
+
+   If there is an input in the URL for emotion such as: https://flask-slim.azurewebsites.net/api/feeling?emotion=angry, then the response will return "why are you feeling angry?". "Angry" will substitute the placeholder for emotion in ```(f'Why are you feeling {emotion}?')```
+
+# Steps and Observations on Azure API Management integration
 
 1. Install Azure CLI with this code:
 ```curl -sL https://aka.ms/InstallAzureCLIDeb | sudo bash```
@@ -86,4 +109,4 @@ Azure Link: https://flask-slim.azurewebsites.net/api/feeling
 
 # Challenges and Conclusions
 
-A challenge that I faced when completing this assignment was 
+A challenge that I faced when completing this assignment was trying to install the Azure Functions Core Tools. When I was writing my code, I noticed that there was a red squiggly error that was on the line where I was importing azure.functions as funcs. I referred back to this website for help: https://learn.microsoft.com/en-us/azure/azure-functions/create-first-function-cli-python?tabs=macos%2Cbash%2Cazure-cli&pivots=python-mode-decorators. I missed the step where it said to install Homebrew. However when I tried installing Homebrew, I kept running into an error where it was saying I had the incorrect password. I changed my password, refreshed the entire Cloud Shell page, and was still receiving the error. However, I decided to just keep on continuing with the assignment and I was still able to successfully deploy.
