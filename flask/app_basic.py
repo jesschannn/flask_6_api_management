@@ -10,12 +10,12 @@ def home():
 def pets_get():
     number = request.args.get('number', '?')
     pet = request.args.get('pet', '?')
-    return f'I have {number} {pet}!'
+    return jsonify({'error': 'Invalid JSON'}), 400
 
 @app.route('/feeling', methods=['GET'])
 def feeling_get():
     emotion = request.args.get('emotion', 'nothing')
-    return f'Why are you feeling {emotion}?'
+    return jsonify({'message': f'Why are you feeling {emotion}?'})
 
 if __name__ == '__main__':
     app.run(debug=True)
